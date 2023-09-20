@@ -5,8 +5,8 @@ import math
 
 class Visualize(FreeSpaceGraph):
 
-    def __init__(self, g1, g2, epsilon, filename1=None, filename2=None, log=False):
-        super().__init__(g1, g2, epsilon, filename1, filename2, log)
+    def __init__(self, g1, g2, epsilon, log=False):
+        super().__init__(g1, g2, epsilon, log)
 
     def plot(self, g1_ids=None, g2_ids=None):
 
@@ -134,8 +134,10 @@ class Visualize(FreeSpaceGraph):
 
         ########## end plotting freespace component ################
 
-        g1_label = mpatches.Patch(color='black', label=self.filename1)
-        g2_label = mpatches.Patch(color='grey', label=self.filename2)
+        g1_label = mpatches.Patch(color='black', label=self.g1.filename)
+        g2_label = mpatches.Patch(color='grey', label=self.g2.filename)
 
         plt.legend(handles=[g1_label, g2_label], loc='upper left')
         plt.show()
+
+

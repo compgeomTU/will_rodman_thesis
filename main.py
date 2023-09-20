@@ -8,6 +8,7 @@ import sys
 from Graph import Graph
 from FreeSpaceGraph import FreeSpaceGraph
 from visualize import Visualize
+from binarysearch import BinarySearch
 
 if __name__ == "__main__":
 
@@ -15,30 +16,33 @@ if __name__ == "__main__":
     filename1 = sys.argv[1]
     filename2 = sys.argv[2]
     epsilon = float(sys.argv[3])
+    
+    # class declaration 
+    g1 = Graph(filename1)
+    g2 = Graph(filename2)
 
     if '-l' in sys.argv:
         log = True
     else:
         log = False
 
+    if '-b' in sys.argv:
+        distance = BinarySearch(g1, g2, log=log)
+        epsilon = distance.search()
+
     if '-g1_ids' in sys.argv and '-g2_ids' in sys.argv:
         arg1 = sys.argv[sys.argv.index('-g1_ids')+1]
         arg2 = sys.argv[sys.argv.index('-g2_ids')+1]
         g1_ids = [eval(i) for i in arg1.split(',')]
         g2_ids = [eval(i) for i in arg2.split(',')]
-
     else:
         g1_ids, g2_ids = None, None
 
-    # class declaration 
-    g1 = Graph(filename1)
-    g2 = Graph(filename2)
+    if '-p' in sys.argv:
+        distance = Visualize(g1, g2, epsilon, log=log)
+        projection_check = distance.DFSTraversalDist()
+        distance.plot(g1_ids=g1_ids, g2_ids=g2_ids)
 
-    vis = Visualize(g1, g2, epsilon, filename1=filename1, filename2=filename2, log=log)
-    projection_check = vis.DFSTraversalDist()
-    vis.plot(g1_ids=g1_ids, g2_ids=g2_ids)
-
-    # print dfs result 
     print("\n-- Epsilon --")
     print(f"     {epsilon}")
 
@@ -49,7 +53,6 @@ if __name__ == "__main__":
     print(f"     No. vertices in {filename2}:", g1.numberOfNodes)
 
     print("\n -- Running Traversal Distance --")
-    print("     DFS Function Calls:", vis.DFS_calls)
-    print("     DFS FS CBs computed:", len(vis.cell_boundaries))
-    print("     Total Possible CBs:", vis.cb_count)
-    print("     DFS Projection Check:", projection_check)
+    print("     DFS Function Calls:", distance.DFS_calls)
+    print("     DFS FS CBs computed:", len(distance.cell_boundaries))
+    print("     Total Possible CBs:", distance.cb_count)

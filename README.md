@@ -3,14 +3,21 @@
 ### Command Line
 To run the program, run a command line execution in the package with format:
 ```
-python3 main.py samples/paris/arc_de_triomphe samples/paris/vehicle 5  -g1_ids 0 -g2_ids 0,1,2
+python3 main.py samples/paris/arc_de_triomphe samples/paris/vehicle 5 -p -g1_ids 0 -g2_ids 0,1,2
 ```
-
+```
+python3 main.py samples/paris/arc_de_triomphe samples/paris/vehicle 5 -b
+```
+```
+python3 main.py samples/paris/arc_de_triomphe samples/paris/vehicle 5 -b -p
+```
 **Flags:**
 * `-l` type: *str* logs the computation of the Traversal Distance to .log files.
+* `b` binary search
 * `-p` plots graph 1 and graph 2.
 * `g1_ids1`
 * `g2_ids1`
+
 
 ### Sample Inputs
 Sample graph and curve files can be copied and pasted into the command line.

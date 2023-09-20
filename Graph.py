@@ -14,6 +14,7 @@ import geojson
 
 class Graph:
     def __init__(self, filename=None):
+        self.filename = filename
         self.nodes = {}  # id -> [lon,lat]
         self.edges = {}  # id -> [n1, n2]
         self.nodeLink = {}   # id -> list of next nodes

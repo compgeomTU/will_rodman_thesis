@@ -26,15 +26,13 @@ import math
 sys.setrecursionlimit(3000)
 
 class FreeSpaceGraph:
-    def __init__(self, g1, g2, epsilon, filename1=None, filename2=None, log=False):
+    def __init__(self, g1, g2, epsilon, log=False):
         self.g1 = g1  # g1, g2 are Graph objects
         self.g2 = g2
         self.epsilon = epsilon
         self.cell_boundaries = {}
         self.cb_count = len(g2.nodes) * len(g1.edges) + len(g1.nodes) * len(g2.edges)
         self.DFS_calls = 0
-        self.filename1 = filename1
-        self.filename2 = filename2
         self.log = log
 
         # logging setup
