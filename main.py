@@ -15,7 +15,6 @@ if __name__ == "__main__":
     # argument parse 
     filename1 = sys.argv[1]
     filename2 = sys.argv[2]
-    epsilon = float(sys.argv[3])
     
     # class declaration 
     g1 = Graph(filename1)
@@ -39,6 +38,7 @@ if __name__ == "__main__":
         g1_ids, g2_ids = None, None
 
     if '-p' in sys.argv:
+        epsilon = int(sys.argv[sys.argv.index('-p')+1])
         distance = Visualize(g1, g2, epsilon, log=log)
         projection_check = distance.DFSTraversalDist()
         distance.plot(g1_ids=g1_ids, g2_ids=g2_ids)

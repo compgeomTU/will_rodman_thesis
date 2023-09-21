@@ -26,7 +26,7 @@ import math
 sys.setrecursionlimit(3000)
 
 class FreeSpaceGraph:
-    def __init__(self, g1, g2, epsilon, log=False):
+    def __init__(self, g1, g2, epsilon=0, log=False):
         self.g1 = g1  # g1, g2 are Graph objects
         self.g2 = g2
         self.epsilon = epsilon
