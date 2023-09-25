@@ -43,6 +43,8 @@ class Visualize(FreeSpaceGraph):
             g1_edges = {id: self.g1.edges[id] for id in g1_ids}
             g2_edges = {id: self.g2.edges[id] for id in g2_ids}
         
+        print(self.cell_boundaries)
+
         # cell iteration
         for g2_id, g2_edge in g2_edges.items():
             for g1_id, g1_edge in g1_edges.items():

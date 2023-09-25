@@ -298,4 +298,7 @@ class CellBoundary:
 
     def add_cd_str(self):
         return f"({self.vertexID}, {self.edgeID}) -> "
+    
+    def __repr__(self):
+        return f"|{self.start_fs} --- {self.end_fs}|"
 

@@ -38,7 +38,7 @@ if __name__ == "__main__":
         g1_ids, g2_ids = None, None
 
     if '-p' in sys.argv:
-        epsilon = int(sys.argv[sys.argv.index('-p')+1])
+        epsilon = float(sys.argv[sys.argv.index('-p')+1])
         distance = Visualize(g1, g2, epsilon, log=log)
         projection_check = distance.DFSTraversalDist()
         distance.plot(g1_ids=g1_ids, g2_ids=g2_ids)
