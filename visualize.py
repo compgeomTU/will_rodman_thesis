@@ -92,11 +92,11 @@ class Visualize(FreeSpaceGraph):
                 if cb_2:
                     if cb_2.start_fs != -1.0:
                         point = (cb_2_x(cb_2.start_fs), cb_2_y(cb_2.start_fs))
-                        points.append(point)
+                        #points.append(point)
 
                     if cb_2.end_fs != -1.0:
                         point = (cb_2_x(cb_2.end_fs), cb_2_y(cb_2.end_fs))
-                        points.append(point)
+                        #points.append(point)
 
                 # map horizonal upper CB (3)
                 cb_3_x = lambda cb: (g1_n2_x - g1_n1_x) * cb + g1_n1_x
@@ -118,11 +118,11 @@ class Visualize(FreeSpaceGraph):
                 if cb_4:
                     if cb_4.start_fs != -1.0:
                         point = (cb_4_x(cb_4.start_fs), cb_4_y(cb_4.start_fs))
-                        points.append(point)
+                        #points.append(point)
 
                     if cb_4.end_fs != -1.0:
                         point = (cb_4_x(cb_4.end_fs), cb_4_y(cb_4.end_fs))
-                        points.append(point)
+                        #points.append(point)
 
                 # verify polygon (not line)
                 if len(points) > 2: 

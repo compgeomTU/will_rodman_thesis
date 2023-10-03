@@ -15,7 +15,7 @@ python3.9 main.py samples/paris/arc_de_triomphe samples/paris/vehicle -b -p 5
 ```
 
 ```
-python3.0 main.py samples/square/aside samples/square/bside -b
+python3.9 main.py samples/square/aside samples/square/bside -b
 ```
 ```
 python3.9 main.py samples/square/aside samples/square/bside -p 10
