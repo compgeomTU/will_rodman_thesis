@@ -38,14 +38,10 @@ class Visualize(FreeSpaceGraph):
 
         if g1_ids is None and g1_ids is None:
             g1_edges, g2_edges = self.g1.edges, self.g2.edges
-
         else: 
             g1_edges = {id: self.g1.edges[id] for id in g1_ids}
             g2_edges = {id: self.g2.edges[id] for id in g2_ids}
         
-        print(self.cell_boundaries)
-
-        # cell iteration
         for g2_id, g2_edge in g2_edges.items():
             for g1_id, g1_edge in g1_edges.items():
                 
@@ -60,72 +56,33 @@ class Visualize(FreeSpaceGraph):
 
                 # vetical left CB
                 cb_4 = self.get_cell_boundry(self.g1, g1_edge[1], self.g2, g2_id)
-
-                g1_n1_id, g1_n2_id = g1_edge[0], g1_edge[1]
-                g1_n1_x, g1_n2_x = self.g1.nodes[g1_n1_id][0], self.g1.nodes[g1_n2_id][0]
-                g1_n1_y, g1_n2_y = self.g1.nodes[g1_n1_id][1], self.g1.nodes[g1_n2_id][1]
-
-                g2_n1_id, g2_n2_id = g2_edge[0], g2_edge[1]
-                g2_n1_x, g2_n2_x = self.g2.nodes[g2_n1_id][0], self.g2.nodes[g2_n2_id][0]
-                g2_n1_y, g2_n2_y = self.g2.nodes[g2_n1_id][1], self.g2.nodes[g2_n2_id][1]
-
-                # map normal square to quadralateral
-                points = list()
-
-                # map horizonal lower CB (1)
-                cb_1_x = lambda cb: (g2_n2_x - g2_n1_x) * cb + g2_n1_x
-                cb_1_y = lambda cb: (g2_n2_y - g2_n1_y) * cb + g2_n1_y
-
-                if cb_1:
-                    if cb_1.start_fs != -1.0:
-                        point = (cb_1_x(cb_1.start_fs), cb_1_y(cb_1.start_fs))
-                        points.append(point)
-
-                    if cb_1.end_fs != -1.0:
-                        point = (cb_1_x(cb_1.end_fs), cb_1_y(cb_1.end_fs))
-                        points.append(point)
-
-                # map vert right CB (2)
-                cb_2_x = lambda cb: (g1_n1_x - g2_n1_x) * cb + g2_n1_x
-                cb_2_y = lambda cb: (g1_n1_y - g2_n1_y) * cb + g2_n1_y
-
-                if cb_2:
-                    if cb_2.start_fs != -1.0:
-                        point = (cb_2_x(cb_2.start_fs), cb_2_y(cb_2.start_fs))
-                        #points.append(point)
-
-                    if cb_2.end_fs != -1.0:
-                        point = (cb_2_x(cb_2.end_fs), cb_2_y(cb_2.end_fs))
-                        #points.append(point)
-
-                # map horizonal upper CB (3)
-                cb_3_x = lambda cb: (g1_n2_x - g1_n1_x) * cb + g1_n1_x
-                cb_3_y = lambda cb: (g1_n2_y - g1_n1_y) * cb + g1_n1_y
-
-                if cb_3:
-                    if cb_3.start_fs != -1.0:
-                        point = (cb_3_x(cb_3.start_fs), cb_3_y(cb_3.start_fs))
-                        points.append(point)
-
-                    if cb_3.end_fs != -1.0:
-                        point = (cb_3_x(cb_3.end_fs), cb_3_y(cb_3.end_fs))
-                        points.append(point)
                 
-                # map vert right CB (2)
-                cb_4_x = lambda cb: (g1_n2_x - g2_n2_x) * cb + g2_n2_x
-                cb_4_y = lambda cb: (g1_n2_y - g2_n2_y) * cb + g2_n2_y
+                cb_count = 0
+                
+                for cb in (cb_1, cb_2, cb_3, cb_4):
 
-                if cb_4:
-                    if cb_4.start_fs != -1.0:
-                        point = (cb_4_x(cb_4.start_fs), cb_4_y(cb_4.start_fs))
-                        #points.append(point)
+                    if cb:
+                        if cb.start_fs != -1.0:
+                            cb_count += 1
 
-                    if cb_4.end_fs != -1.0:
-                        point = (cb_4_x(cb_4.end_fs), cb_4_y(cb_4.end_fs))
-                        #points.append(point)
+                        if cb.end_fs != -1.0:
+                            cb_count += 1
 
                 # verify polygon (not line)
-                if len(points) > 2: 
+                if cb_count > 2: 
+                    
+                    g1_n1_id, g1_n2_id = g1_edge[0], g1_edge[1]
+                    g1_n1_x, g1_n2_x = self.g1.nodes[g1_n1_id][0], self.g1.nodes[g1_n2_id][0]
+                    g1_n1_y, g1_n2_y = self.g1.nodes[g1_n1_id][1], self.g1.nodes[g1_n2_id][1]
+
+                    g2_n1_id, g2_n2_id = g2_edge[0], g2_edge[1]
+                    g2_n1_x, g2_n2_x = self.g2.nodes[g2_n1_id][0], self.g2.nodes[g2_n2_id][0]
+                    g2_n1_y, g2_n2_y = self.g2.nodes[g2_n1_id][1], self.g2.nodes[g2_n2_id][1]
+                    
+                    points = [(g1_n1_x, g1_n1_y),
+                              (g1_n2_x, g1_n2_y),
+                              (g2_n1_x, g2_n1_y),
+                              (g2_n2_x, g2_n2_y)]
 
                     # sorting coords 
                     cent=(sum([p[0] for p in points])/len(points),sum([p[1] for p in points])/len(points))
