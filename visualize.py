@@ -1,4 +1,4 @@
-from FreeSpaceGraph import FreeSpaceGraph
+from TraversalDistance.FreeSpaceGraph import FreeSpaceGraph
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import math

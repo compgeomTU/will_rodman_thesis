@@ -6,9 +6,9 @@
 
 import sys
 from Graph import Graph
-from FreeSpaceGraph import FreeSpaceGraph
-from visualize import Visualize
-from binarysearch import BinarySearch
+from TraversalDistance.FreeSpaceGraph import FreeSpaceGraph
+from Visualize import Visualize
+from BinarySearch import BinarySearch
 
 if __name__ == "__main__":
 

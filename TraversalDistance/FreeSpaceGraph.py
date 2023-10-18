@@ -17,8 +17,8 @@ Contributors:
     wrodman@tulane.edu
 """
 
-from CalFreeSpace import calfreespace
-from LineIntersection import find_ellipse_max_min_points
+from TraversalDistance.CalFreeSpace import calfreespace
+from TraversalDistance.LineIntersection import find_ellipse_max_min_points
 import logging
 import sys
 import math

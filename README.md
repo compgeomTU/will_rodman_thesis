@@ -30,9 +30,9 @@ python3.9 main.py samples/square/aside samples/square/bside -p 10
 
 ### Sample Inputs
 Sample graph and curve files can be copied and pasted into the command line.
-1. samples/paris/arc_de_triomphe samples/paris/vehicle
-2. samples/athens/groundtruth samples/athens/kevin
-3. samples/chicago/groundtruth samples/chicago/james
+1. sample_data/paris/arc_de_triomphe sample_data/paris/vehicle
+2. sample_data/athens/groundtruth sample_data/athens/kevin
+3. sample_data/chicago/groundtruth sample_data/chicago/james
 
 ### Authors
 **Dr. Carola Wenk** 
