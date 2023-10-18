@@ -5,7 +5,7 @@
 """
 
 import sys
-from Graph import Graph
+from TraversalDistance.Graph import Graph
 from TraversalDistance.FreeSpaceGraph import FreeSpaceGraph
 from Visualize import Visualize
 from BinarySearch import BinarySearch

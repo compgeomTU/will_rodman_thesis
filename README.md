@@ -3,22 +3,22 @@
 ### Command Line
 To run the program, run a command line execution in the package with format:
 ```
-python3.9 main.py samples/paris/arc_de_triomphe samples/paris/vehicle -p 5 -g1_ids 0 -g2_ids 0,1,2
+python3.9 main.py sample_data/paris/arc_de_triomphe sample_data/paris/vehicle -p 5 -g1_ids 0 -g2_ids 0,1,2
 ```
 
 ```
-python3.9 main.py samples/paris/arc_de_triomphe samples/paris/vehicle -p 4.3
+python3.9 main.py sample_data/paris/arc_de_triomphe sample_data/paris/vehicle -p 4.3
 ```
 
 ```
-python3.9 main.py samples/paris/arc_de_triomphe samples/paris/vehicle -b -p 5
+python3.9 main.py sample_data/paris/arc_de_triomphe sample_data/paris/vehicle -b -p 5
 ```
 
 ```
-python3.9 main.py samples/square/aside samples/square/bside -b
+python3.9 main.py sample_data/square/aside sample_data/square/bside -b
 ```
 ```
-python3.9 main.py samples/square/aside samples/square/bside -p 10
+python3.9 main.py sample_data/square/aside sample_data/square/bside -p 10
 ```
 
 **Flags:**
