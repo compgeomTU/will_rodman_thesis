@@ -10,6 +10,8 @@ Contributor:
 
 import math
 
+import math
+
 #(x1, y1) is starting point of edge of G1 (x2, y2) is ending point of edge of G1 (xa, ya) is vertex of G2
 #(start, end) will start as (0,1) and will return as the reachable boundary of free space on that edge as a value between 0-1
 def calfreespace(x1, y1, x2, y2, xa, ya, Epsilon):

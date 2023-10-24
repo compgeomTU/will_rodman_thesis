@@ -24,15 +24,16 @@ import sys
 import math
 
 sys.setrecursionlimit(3000)
-
 class FreeSpaceGraph:
-    def __init__(self, g1, g2, epsilon=0, log=False):
+    def __init__(self, g1, g2, epsilon, filename1=None, filename2=None, log=False):
         self.g1 = g1  # g1, g2 are Graph objects
         self.g2 = g2
         self.epsilon = epsilon
         self.cell_boundaries = {}
         self.cb_count = len(g2.nodes) * len(g1.edges) + len(g1.nodes) * len(g2.edges)
         self.DFS_calls = 0
+        self.filename1 = filename1
+        self.filename2 = filename2
         self.log = log
 
         # logging setup
@@ -68,6 +69,7 @@ class FreeSpaceGraph:
             self.dfs_logger.addHandler(dfs_log_handler)
             self.path_logger.addHandler(path_log_handler)
             self.projection_logger.addHandler(projection_log_handler)
+
               
     """ DFS Diagram: for all neighbors--> for 2 horizontals and one vertical
         boundaries are lined, vertices are in (), the ellipse boundaries are shown without outlining ellipse
@@ -214,22 +216,23 @@ class FreeSpaceGraph:
                 # adds first (single white interval)
                 # map --> [pairs] --- sorted list of (s,e) pairs will be the val
                 all_cbs[mycb.edgeID] = [(mycb.start_p, mycb.end_p)]
-        if self.log: self.projection_logger.info("\n\n for pairs in union:")
+        if self.log: 
+            self.projection_logger.info("\n\n for pairs in union:")
         for key in all_cbs:
             intervals = all_cbs[key]
             #self.projection_logger.info("\n intervals="+str(intervals))
             # we want intervals to be start=0 and end=1
             if len(intervals) == 1:
                 if intervals[0][0] != 0.0 or intervals[0][1] != 1.0:
-                    if self.log: self.projection_logger.info(" --> is false")
+                    if self.log:
+                        self.projection_logger.info(" --> is false")
                     return False
-            else:
-                return False
         # if intervals cover all edges
         return True
 
     def DFSTraversalDist(self):
         # given one free space boundary, compute all adjacent free space boundaries
+        self.cell_boundaries.clear()
 
         # Horizontal boundaries
         for v in self.g2.nodes.keys():
@@ -237,7 +240,8 @@ class FreeSpaceGraph:
                 seed_cb = self.get_cell_boundry(self.g2, v, self.g1, e)
                 ### check visted 
                 if not seed_cb.visited:
-                    if self.log: self.traversal_logger.info("v: " + str(v) + " e: " + str(e) + " seed_cb: " + str(seed_cb))
+                    if self.log: 
+                        self.traversal_logger.info("v: " + str(v) + " e: " + str(e) + " seed_cb: " + str(seed_cb))
                     self.DFS(seed_cb, [], "")
                     check_projection = self.check_projection()
                     self.DFS_calls += 1
@@ -250,15 +254,31 @@ class FreeSpaceGraph:
                 seed_cb = self.get_cell_boundry(self.g1, v, self.g2, e)
                 ### check visited
                 if not seed_cb.visited:
-                    if self.log: self.traversal_logger.info("v: " + str(v) + " e: " + str(e) + " seed_cb: " + str(seed_cb))
+                    if self.log:
+                        self.traversal_logger.info("v: " + str(v) + " e: " + str(e) + " seed_cb: " + str(seed_cb))
                     self.DFS(seed_cb, [], "")
                     check_projection = self.check_projection()
                     self.DFS_calls += 1
                     if check_projection:
                         return True
-                
+                    
         return False
-   
+                    
+    def brute_force_TraversalDist(self):
+        self.cell_boundaries.clear()
+        
+        # Horizontal boundaries
+        for v in self.g2.nodes.keys():
+            for e in self.g1.edges.keys():
+                self.cell_boundaries[(self.g2, v, self.g1, e)] = CellBoundary(self.g2, v, self.g1, e, self.epsilon)
+                
+        # Verticle boundaries
+        for v in self.g1.nodes.keys():
+            for e in self.g2.edges.keys():
+                self.cell_boundaries[(self.g1, v, self.g2, e)] = CellBoundary(self.g1, v, self.g2, e, self.epsilon)
+
+        return self.check_projection()
+
     def get_cell_boundry(self, ga, v, gb, e):
         cb = self.cell_boundaries.get((id(ga), v, id(gb), e))
         if cb is None:
@@ -292,13 +312,9 @@ class CellBoundary:
         # call CFS and return tuple --> compute from free space by traversing the free space
         self.start_fs, self.end_fs = calfreespace(
             x1, y1, x2, y2, xa, ya, eps)  # start/end of freespace
-
+        
     def print_cellboundary(self):
         return "V_ID: " + str(self.vertexID) + " E_ID: " + str(self.edgeID) + " start: " + str(self.start_p) + " end: " + str(self.end_p)
 
     def add_cd_str(self):
         return f"({self.vertexID}, {self.edgeID}) -> "
-    
-    def __repr__(self):
-        return f"|{self.start_fs} --- {self.end_fs}|"
-

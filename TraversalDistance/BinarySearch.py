@@ -11,7 +11,7 @@ class BinarySearch(FreeSpaceGraph):
         self.left = left
         self.right = right
         self.precision = precision
-        super().__init__(g1, g2, log=log)
+        super().__init__(g1, g2, epsilon=right, log=log)
 
     def search(self):
         if self.right - self.left <= self.precision:
@@ -19,11 +19,9 @@ class BinarySearch(FreeSpaceGraph):
             return self.right 
         
         self.epsilon = (self.left + self.right) / 2
-        self.cell_boundaries.clear()
+        print(f"| {self.left} -- {self.epsilon} -- {self.right} |")
         projection_check = self.DFSTraversalDist()
-
-        print(f"Projeciton check if epsilon is reachable: {projection_check}")
-        print(f"| {self.left} -- {self.epsilon} -- {self.right} |", '\n')
+        print(f"Projection check if epsilon is reachable: {projection_check}", '\n')
 
         if projection_check:
             self.right = self.epsilon
