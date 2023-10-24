@@ -7,8 +7,8 @@
 import sys
 from TraversalDistance.Graph import Graph
 from TraversalDistance.FreeSpaceGraph import FreeSpaceGraph
-from Visualize import Visualize
-from BinarySearch import BinarySearch
+from TraversalDistance.Visualize import Visualize
+from TraversalDistance.BinarySearch import BinarySearch
 
 if __name__ == "__main__":
 
@@ -41,7 +41,7 @@ if __name__ == "__main__":
         epsilon = float(sys.argv[sys.argv.index('-p')+1])
         distance = Visualize(g1, g2, epsilon, log=log)
         projection_check = distance.DFSTraversalDist()
-        distance.plot(g1_ids=g1_ids, g2_ids=g2_ids)
+        distance.plot_freespace_cells(g1_ids=g1_ids, g2_ids=g2_ids)
 
     print("\n-- Epsilon --")
     print(f"     {epsilon}")

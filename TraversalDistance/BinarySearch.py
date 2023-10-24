@@ -1,4 +1,4 @@
-from TraversalDistance.FreeSpaceGraph import FreeSpaceGraph
+from .FreeSpaceGraph import FreeSpaceGraph
 
 class BinarySearch(FreeSpaceGraph):
 

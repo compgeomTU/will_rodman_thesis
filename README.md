@@ -11,7 +11,7 @@ python3.9 main.py sample_data/paris/arc_de_triomphe sample_data/paris/vehicle -p
 ```
 
 ```
-python3.9 main.py sample_data/paris/arc_de_triomphe sample_data/paris/vehicle -b -p 5
+python3.9 main.py sample_data/paris/arc_de_triomphe sample_data/paris/arc_de_triomphe -b 
 ```
 
 ```

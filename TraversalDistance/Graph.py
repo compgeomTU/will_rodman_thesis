@@ -246,9 +246,9 @@ class Graph:
                 n.append(n2)
 
             plt.plot([n1[0], n2[0]], [n1[1], n2[1]],
-                     color='dimgray', linewidth=3)
+                     color='black', linewidth=3)
 
         lons, lats = map(list, zip(*n))
 
-        plt.scatter(lons, lats, s=100, c='dimgray')
+        plt.scatter(lons, lats, s=100, c='black')
         plt.show()
