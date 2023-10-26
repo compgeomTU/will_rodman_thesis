@@ -181,6 +181,10 @@ class FreeSpaceGraph:
         return intervalsRETURN
 
     def check_projection(self):
+        #check if geometric graphs are identical
+        if self.g1 == self.g2:
+            return True 
+        
         # assumes g1 is horiz and g2 is vert
         all_cbs = {}
         if self.log:
@@ -264,21 +268,6 @@ class FreeSpaceGraph:
                     
         return False
                     
-    def brute_force_TraversalDist(self):
-        self.cell_boundaries.clear()
-        
-        # Horizontal boundaries
-        for v in self.g2.nodes.keys():
-            for e in self.g1.edges.keys():
-                self.cell_boundaries[(self.g2, v, self.g1, e)] = CellBoundary(self.g2, v, self.g1, e, self.epsilon)
-                
-        # Verticle boundaries
-        for v in self.g1.nodes.keys():
-            for e in self.g2.edges.keys():
-                self.cell_boundaries[(self.g1, v, self.g2, e)] = CellBoundary(self.g1, v, self.g2, e, self.epsilon)
-
-        return self.check_projection()
-
     def get_cell_boundry(self, ga, v, gb, e):
         cb = self.cell_boundaries.get((id(ga), v, id(gb), e))
         if cb is None:
@@ -288,7 +277,6 @@ class FreeSpaceGraph:
     
     def set_cell_boundry(self, ga, v, gb, e):
         self.cell_boundaries[(ga, v, gb, e)] = CellBoundary(ga, v, gb, e, self.epsilon)
-
 class CellBoundary:
     def __init__(self, g_verts, vertexID, g_edges, edgeID, eps):
         # use ID's consistant with Erfan's code

@@ -10,11 +10,13 @@ Contributors;
 
 from geojson import LineString, Feature, FeatureCollection
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 import geojson
 
 class Graph:
-    def __init__(self, filename=None):
+    def __init__(self, filename=None, name="Untitled"):
         self.filename = filename
+        self.name = "Untitled"
         self.nodes = {}  # id -> [lon,lat]
         self.edges = {}  # id -> [n1, n2]
         self.nodeLink = {}   # id -> list of next nodes
@@ -28,6 +30,10 @@ class Graph:
         self.edgeInt = {}
         self.deletedNodes = {}
         self.breadcrumbs = {}  # id -> [[lon,lat],[lon,lat], ...]
+
+        if name is "Untitled" and filename is not None:
+            self.name = self.filename
+        
         if filename is not None:
             with open(filename+"_vertices.txt", 'r') as vf:
                 for line in vf:
@@ -246,9 +252,17 @@ class Graph:
                 n.append(n2)
 
             plt.plot([n1[0], n2[0]], [n1[1], n2[1]],
-                     color='black', linewidth=3)
+                     color='black', linewidth=2)
 
         lons, lats = map(list, zip(*n))
 
-        plt.scatter(lons, lats, s=100, c='black')
+        plt.scatter(lons, lats, s=20, c='black')
+        g1_label = mpatches.Patch(color='black', label=self.name)
+        plt.legend(handles=[g1_label], loc='upper left')
         plt.show()
+        
+    def __eq__(self, other):
+        if (self.nodes == other.nodes) and \
+            (self.edges == other.edges):
+            return True 
+        return False
