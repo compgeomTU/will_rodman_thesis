@@ -119,6 +119,6 @@ class Visualize(FreeSpaceGraph):
                     points.sort(key=lambda p: math.atan2(p[1]-cent[1],p[0]-cent[0]))
 
                     xs, ys = list(zip(*points))    
-                    axs.fill(xs, ys, alpha=cell_area, fc='r', ec='none')
+                    axs.fill(xs, ys, alpha=cell_area, fc='limegreen', ec='none')
                     
         plt.show()
