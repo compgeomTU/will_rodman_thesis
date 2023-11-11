@@ -41,10 +41,11 @@ class Visualize(FreeSpaceGraph):
             n1, n2 = self.g2.nodes[n1_id], self.g2.nodes[n2_id]
             plt.plot([n1[0], n2[0]], [n1[1], n2[1]], color='grey', linewidth=2)
             
-        g1_label = mpatches.Patch(color='black', label=self.g1.name)
-        g2_label = mpatches.Patch(color='grey', label=self.g2.name)
+        g1_label = mpatches.Patch(color='black', label=f"G1: {self.g1.name}")
+        g2_label = mpatches.Patch(color='grey', label=f"G2: {self.g2.name}")
 
         plt.legend(handles=[g1_label, g2_label], loc='upper left')
+        plt.title(f"Epsilon: {self.epsilon}")
             
     def plot_graphs(self):
         self.__build_graphs()
