@@ -1,4 +1,5 @@
 from .FreeSpaceGraph import FreeSpaceGraph
+from .Graph import Graph
 class BinarySearch(FreeSpaceGraph):
 
     left: float
@@ -6,11 +7,11 @@ class BinarySearch(FreeSpaceGraph):
     middle: float
     precision: float
 
-    def __init__(self, g1, g2, log=False, left=0, right=100, precision=1):
+    def __init__(self, g1=Graph(), g2=Graph(), log=False, left=0, right=100, precision=1):
         self.left = left
         self.right = right
         self.precision = precision
-        super().__init__(g1, g2, epsilon=right, log=log)
+        super().__init__(g1, g2, epsilon=float(), log=log)
 
     def search(self):
         if self.right - self.left <= self.precision:

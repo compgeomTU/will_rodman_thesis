@@ -1,12 +1,13 @@
 from .FreeSpaceGraph import FreeSpaceGraph
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import numpy as np 
 import math
 class Visualize(FreeSpaceGraph):
 
     def __init__(self, g1, g2, epsilon=100, log=False):
         super().__init__(g1, g2, epsilon, log)
-        
+
     @staticmethod
     def __calculate_cell_area(points):
         n, area = len(points), 0.0
@@ -22,24 +23,31 @@ class Visualize(FreeSpaceGraph):
         return area
 
     def __build_graphs(self):
-        G_n = list()
+        g1_n, g2_n = list(), list()
 
         for id, edge in self.g1.edges.items():
             n1_id, n2_id = edge[0], edge[1]
             n1, n2 = self.g1.nodes[n1_id], self.g1.nodes[n2_id]
 
-            if n1 not in G_n: G_n.append(n1)
-            if n2 not in G_n: G_n.append(n2)
+            if n1 not in g1_n: g1_n.append(n1)
+            if n2 not in g1_n: g1_n.append(n2)
 
             plt.plot([n1[0], n2[0]], [n1[1], n2[1]], color='black', linewidth=2)
 
-        lons, lats = map(list, zip(*G_n))
-        plt.scatter(lons, lats, s=20, c='black')
+        lons, lats = map(list, zip(*g1_n))
+        plt.scatter(lons, lats, s=25, c='black')
 
         for id, edge in self.g2.edges.items():
             n1_id, n2_id = edge[0], edge[1]
             n1, n2 = self.g2.nodes[n1_id], self.g2.nodes[n2_id]
+            
+            if n1 not in g2_n: g2_n.append(n1)
+            if n2 not in g2_n: g2_n.append(n2)
+            
             plt.plot([n1[0], n2[0]], [n1[1], n2[1]], color='grey', linewidth=2)
+            
+        lons, lats = map(list, zip(*g2_n))
+        plt.scatter(lons, lats, s=25, c='grey')
             
         g1_label = mpatches.Patch(color='black', label=f"G1: {self.g1.name}")
         g2_label = mpatches.Patch(color='grey', label=f"G2: {self.g2.name}")
@@ -119,7 +127,7 @@ class Visualize(FreeSpaceGraph):
                     cent=(sum([p[0] for p in points])/len(points),sum([p[1] for p in points])/len(points))
                     points.sort(key=lambda p: math.atan2(p[1]-cent[1],p[0]-cent[0]))
 
-                    xs, ys = list(zip(*points))    
-                    axs.fill(xs, ys, alpha=cell_area, fc='limegreen', ec='none')
+                    xs, ys = list(zip(*points))  
+                    axs.fill(xs, ys, alpha=(cell_area**2), fc='limegreen', ec='none')
                     
         plt.show()
