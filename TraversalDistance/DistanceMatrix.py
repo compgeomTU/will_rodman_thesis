@@ -12,7 +12,7 @@ class DistanceMatrix(BinarySearch):
     right_global: float
     precision_global: float
 
-    def __init__(self, m, n, m_name=None, n_name=None, left=0, right=1000, precision=1):
+    def __init__(self, m, n, left=0, right=1000, precision=1):
         self.m = m
         self.n = n
         self.matrix = list()
@@ -33,15 +33,12 @@ class DistanceMatrix(BinarySearch):
         for mi in self.m:
             self.matrix.append(list())    
             for ni in self.n:     
-                try:
-                    self.__flush()
-                    self.g1, self.g2 = mi, ni
-                    epsilon_x = self.search()
+                self.__flush()
+                self.g1, self.g2 = mi, ni
+                epsilon_x = self.search()
                     
-                    self.__flush()
-                    self.g1, self.g2 = ni, mi
-                    epsilon_y = self.search()
-                    self.matrix[-1].append((epsilon_x, epsilon_y))
-                except Exception as error: 
-                    print(f"Exception: {error}.")
+                self.__flush()
+                self.g1, self.g2 = ni, mi
+                epsilon_y = self.search()
+                self.matrix[-1].append((epsilon_x, epsilon_y))
                                 

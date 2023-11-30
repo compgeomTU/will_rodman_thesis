@@ -13,16 +13,24 @@ class BinarySearch(FreeSpaceGraph):
         self.precision = precision
         super().__init__(g1, g2, epsilon=float(), log=log)
 
-    def search(self):
+    def search(self):    
+        # check if graphs are equal
+        if self.g1 == self.g2:
+            return 0.0
+            
+        # check if precision threshold is met
         if self.right - self.left <= self.precision:
-            #print(f"Epsilon checks precision: {self.right}")
             return self.right 
         
         self.epsilon = (self.left + self.right) / 2
-        #print(f"| {self.left} -- {self.epsilon} -- {self.right} |")
-        projection_check = self.DFSTraversalDist()
-        #print(f"Projection check if epsilon is reachable: {projection_check}", '\n')
 
+        # trying to compute traversal distance, if fails, return non-distance value        
+        try:
+            projection_check = self.DFSTraversalDist()
+        except Exception as error:
+            print(f"Exception: {error}.")
+            return -1.0
+        
         if projection_check:
             self.right = self.epsilon
             return self.search()
