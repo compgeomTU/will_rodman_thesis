@@ -56,11 +56,13 @@ class Visualize(FreeSpaceGraph):
         plt.title(f"Epsilon: {self.epsilon}")
             
     def plot_graphs(self):
+        fig, ax = plt.subplots()
         self.__build_graphs()
-        
-        plt.show()
+        return fig, ax
+
 
     def plot_freespace(self, g1_ids=None, g2_ids=None):
+        fig, ax = plt.subplots()
         self.__build_graphs()
 
         axs = plt.gca()
@@ -130,4 +132,4 @@ class Visualize(FreeSpaceGraph):
                     xs, ys = list(zip(*points))  
                     axs.fill(xs, ys, alpha=(cell_area**2), fc='limegreen', ec='none')
                     
-        plt.show()
+        return fig, ax
