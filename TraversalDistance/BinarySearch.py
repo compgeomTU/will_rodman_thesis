@@ -15,8 +15,7 @@ class BinarySearch(FreeSpaceGraph):
 
     def search(self):    
         # check if graphs are equal
-        if self.g1 == self.g2:
-            return 0.0
+        #if self.g1 == self.g2: return 0.0
             
         # check if precision threshold is met
         if self.right - self.left <= self.precision:
@@ -26,6 +25,7 @@ class BinarySearch(FreeSpaceGraph):
 
         # trying to compute traversal distance, if fails, return non-distance value        
         try:
+            self.cell_boundaries.clear()
             projection_check = self.DFSTraversalDist()
         except Exception as error:
             print(f"Exception: {error}.")
