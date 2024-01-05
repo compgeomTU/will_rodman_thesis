@@ -14,9 +14,10 @@ import matplotlib.patches as mpatches
 import geojson
 
 class Graph:
-    def __init__(self, filename=None, name="Untitled"):
+    def __init__(self, filename=None, name="Untitled", id=None):
         self.filename = filename
         self.name = "Untitled"
+        self.id = id
         self.nodes = {}  # id -> [lon,lat]
         self.edges = {}  # id -> [n1, n2]
         self.nodeLink = {}   # id -> list of next nodes

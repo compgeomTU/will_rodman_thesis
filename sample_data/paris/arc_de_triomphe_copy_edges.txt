@@ -1,0 +1,11 @@
+0,0,8     , # spoke
+1,1,9     , # spoke
+2,2,10    , # spoke (fork)
+3,0,1     , # ring
+4,1,2     , # ring
+5,2,3    , # ring
+6,3,4    , # ring
+7,4,5    , # ring
+8,5,6    , # ring
+9,6,7    , # ring
+10,0,7
