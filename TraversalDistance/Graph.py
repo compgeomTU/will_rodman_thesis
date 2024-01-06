@@ -89,6 +89,11 @@ class Graph:
 
         if nid2 not in self.nodeLink[nid1]:
             self.nodeLink[nid1].append(nid2)
+            
+        ### Will Rodman debug ####
+        if nid1 not in self.nodeLink[nid2]:
+            self.nodeLink[nid2].append(nid1)
+        ### Will Rodman debug ####
 
         return self.numberOfEdges - 1
 
