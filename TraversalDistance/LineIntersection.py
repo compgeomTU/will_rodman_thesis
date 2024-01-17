@@ -2,7 +2,6 @@
 Author: 
     Erfan Hosseini Sereshgi
     Tulane University
-
 """
 
 import math

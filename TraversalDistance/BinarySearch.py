@@ -7,7 +7,7 @@ class BinarySearch(FreeSpaceGraph):
     middle: float
     precision: float
 
-    def __init__(self, g1=Graph(), g2=Graph(), log=False, left=0, right=100, precision=1):
+    def __init__(self, g1=Graph(), g2=Graph(), left=0, right=100, precision=1, log=False):
         self.left = left
         self.right = right
         self.precision = precision
