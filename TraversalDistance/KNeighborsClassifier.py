@@ -16,6 +16,7 @@ class KNeighborsClassifier():
 
     def __init__(self, n_neighbors, mean='arithmetic', left=0, right=1000, precision=1):
         self.distances = list()
+        self.n_neighbors = n_neighbors
                 
         self.left = left
         self.right = right
@@ -46,15 +47,13 @@ class KNeighborsClassifier():
             
         return self.mean(epsilon_a, epsilon_b)     
     
-    def fit(self, X, y):
-        self.X = X
-        self.y = y
-    
-    def predict(self, X):
+    def __compute(self, x_pred):
+        self.distances.clear()
+        print("\n*** Computing Prediction ***")
                 
         # Computing distances. 
         for x in self.X:
-            distance = self.__metric(X, x)
+            distance = self.__metric(x_pred, x)
             self.distances.append(distance)
             
         # Sorting distances. 
@@ -65,8 +64,17 @@ class KNeighborsClassifier():
 
         # Create a sublist of classifications using indices.
         n_classifications = [self.y[i] for i in n_indices]
+        print("Nearest Classifications:", n_classifications)
         
         # Most common classifications in list => prediction. 
         y_hat, _ = Counter(n_classifications).most_common(1)[0]
+        print("Predicted Classification:", y_hat)
         
         return y_hat
+    
+    def fit(self, X, y):
+        self.X = X
+        self.y = y
+        
+    def predict(self, X):
+        return list(map(self.__compute, X))    
