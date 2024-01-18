@@ -181,9 +181,7 @@ class FreeSpaceGraph:
         return intervalsRETURN
 
     def check_projection(self):
-        #check if geometric graphs are identical
-        #if self.g1 == self.g2: return True 
-        
+
         # assumes g1 is horiz and g2 is vert
         all_cbs = {}
         if self.log:

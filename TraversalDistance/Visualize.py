@@ -5,7 +5,7 @@ import numpy as np
 import math
 class Visualize(FreeSpaceGraph):
 
-    def __init__(self, g1, g2, epsilon=100, log=False):
+    def __init__(self, g1, g2, epsilon=1000, log=False):
         super().__init__(g1, g2, epsilon, log)
 
     @staticmethod

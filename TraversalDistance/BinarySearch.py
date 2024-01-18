@@ -7,16 +7,14 @@ class BinarySearch(FreeSpaceGraph):
     middle: float
     precision: float
 
-    def __init__(self, g1=Graph(), g2=Graph(), left=0, right=100, precision=1, log=False):
+    def __init__(self, g1=Graph(), g2=Graph(), left=0, right=1000, precision=1, log=False):
         self.left = left
         self.right = right
         self.precision = precision
         super().__init__(g1, g2, epsilon=float(), log=log)
 
     def search(self):    
-        # check if graphs are equal
-        #if self.g1 == self.g2: return 0.0
-            
+ 
         # check if precision threshold is met
         if self.right - self.left <= self.precision:
             return self.right 
