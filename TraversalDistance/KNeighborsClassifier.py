@@ -38,6 +38,10 @@ class KNeighborsClassifier():
     def __harmonic(a, b):
         return (2 * a * b) / (a + b)
     
+    @staticmethod
+    def __max(a, b):
+        return max(a, b)
+    
     def __metric(self, ga, gb):
         search = BinarySearch(ga, gb, left=self.left, right=self.right, precision=self.precision)
         epsilon_a = search.search()
