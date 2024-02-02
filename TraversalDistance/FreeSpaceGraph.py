@@ -234,6 +234,8 @@ class FreeSpaceGraph:
         return True
 
     def DFSTraversalDist(self):
+        self.cell_boundaries.clear()
+        
         # Horizontal boundaries
         for v in self.g2.nodes.keys():
             for e in self.g1.edges.keys():
@@ -263,6 +265,20 @@ class FreeSpaceGraph:
                         return True
                     
         return False
+    
+    def BruteForceTraversalDist(self):
+        self.cell_boundaries.clear()
+        
+        # Horizontal boundaries
+        for v in self.g2.nodes.keys():
+            for e in self.g1.edges.keys():
+                self.cell_boundaries[(self.g2.id, v, self.g1.id, e)] = CellBoundary(self.g2, v, self.g1, e, self.e)
+                
+        # Verticle boundaries
+        logging.info("Vertical: vertices from G, edges from H")
+        for v in self.g1.nodes.keys():
+            for e in self.g2.edges.keys():
+                self.cell_boundaries[(self.g1.id, v, self.g2.id, e)] = CellBoundary(self.g1, v, self.g2, e, self.e)
                     
     def get_cell_boundry(self, ga, v, gb, e):
         cb = self.cell_boundaries.get((ga.id, v, gb.id, e))

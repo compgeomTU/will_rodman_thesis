@@ -12,6 +12,7 @@ from geojson import LineString, Feature, FeatureCollection
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import geojson
+import random
 
 class Graph:
     def __init__(self, filename=None, name="Untitled", id=None):
@@ -47,7 +48,7 @@ class Graph:
                     if line != "\n" and line != "" and line != "\r\n" and line != "\r" and line != "\n\r": # No empty lines. Compatible with all OSs
                         edge = line.strip('\n').split(',')
                         self.connectTwoNodes(int(edge[0]), int(edge[1]), int(edge[2]))
-
+        
     def addNode(self, nid, lon, lat, nodeweight=0):
         if nid not in self.nodes.keys():
             self.nodes[nid] = [lon, lat]
@@ -244,6 +245,12 @@ class Graph:
         file1.close()
         file2.close()
         print("Done.")
+        
+    def randomize_edges(self):
+        for key, value in self.edges.items():
+            if isinstance(value, list) and len(value) == 2:
+                if random.choice([True, False]):
+                    self.edges[key] = value[::-1]
 
     def Plot2MatPlotLib(self):
         n = list()

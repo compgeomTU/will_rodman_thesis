@@ -23,7 +23,6 @@ class BinarySearch(FreeSpaceGraph):
 
         # trying to compute traversal distance, if fails, return non-distance value        
         try:
-            self.cell_boundaries.clear()
             projection_check = self.DFSTraversalDist()
         except Exception as error:
             print(f"Exception: {error}.")
