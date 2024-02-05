@@ -22,7 +22,7 @@ class Visualize(FreeSpaceGraph):
         area = 0.5 * abs(area)
         return area
 
-    def __build_graphs(self):
+    def __build_graphs(self, ax):
         g1_n, g2_n = list(), list()
 
         for id, edge in self.g1.edges.items():
@@ -32,10 +32,10 @@ class Visualize(FreeSpaceGraph):
             if n1 not in g1_n: g1_n.append(n1)
             if n2 not in g1_n: g1_n.append(n2)
 
-            plt.plot([n1[0], n2[0]], [n1[1], n2[1]], color='black', linewidth=2)
+            ax.plot([n1[0], n2[0]], [n1[1], n2[1]], color='black', linewidth=1.5)
 
         lons, lats = map(list, zip(*g1_n))
-        plt.scatter(lons, lats, s=25, c='black')
+        ax.scatter(lons, lats, s=15, c='black')
 
         for id, edge in self.g2.edges.items():
             n1_id, n2_id = edge[0], edge[1]
@@ -44,26 +44,26 @@ class Visualize(FreeSpaceGraph):
             if n1 not in g2_n: g2_n.append(n1)
             if n2 not in g2_n: g2_n.append(n2)
             
-            plt.plot([n1[0], n2[0]], [n1[1], n2[1]], color='grey', linewidth=2)
+            ax.plot([n1[0], n2[0]], [n1[1], n2[1]], color='grey', linewidth=1.5)
             
         lons, lats = map(list, zip(*g2_n))
-        plt.scatter(lons, lats, s=25, c='grey')
+        ax.scatter(lons, lats, s=15, c='grey')
             
         g1_label = mpatches.Patch(color='black', label=f"G1: {self.g1.name}")
         g2_label = mpatches.Patch(color='grey', label=f"G2: {self.g2.name}")
 
-        plt.legend(handles=[g1_label, g2_label], loc='upper left')
-        plt.title(f"Epsilon: {self.epsilon}")
-            
+        ax.legend(handles=[g1_label, g2_label], loc='upper left')
+        ax.set_title(f"Epsilon: {self.epsilon}")
+
     def plot_graphs(self):
         fig, ax = plt.subplots()
-        self.__build_graphs()
+        self.__build_graphs(ax)
         return fig, ax
 
 
-    def plot_freespace(self, g1_ids=None, g2_ids=None):
-        fig, ax = plt.subplots()
-        self.__build_graphs()
+    def plot_freespace(self, g1_ids=None, g2_ids=None, num=1):
+        fig, ax = plt.subplots(1, 1, num=num)
+        self.__build_graphs(ax)
 
         axs = plt.gca()
         axs.set_aspect('equal', 'datalim')
@@ -130,6 +130,6 @@ class Visualize(FreeSpaceGraph):
                     points.sort(key=lambda p: math.atan2(p[1]-cent[1],p[0]-cent[0]))
 
                     xs, ys = list(zip(*points))  
-                    axs.fill(xs, ys, alpha=(cell_area**2), fc='limegreen', ec='none')
+                    axs.fill(xs, ys, alpha=cell_area, fc='coral', ec='none')
                     
         return fig, ax

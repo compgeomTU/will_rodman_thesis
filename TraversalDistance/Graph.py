@@ -17,7 +17,7 @@ import random
 class Graph:
     def __init__(self, filename=None, name="Untitled", id=None):
         self.filename = filename
-        self.name = "Untitled"
+        self.name = name
         self.id = id
         self.nodes = {}  # id -> [lon,lat]
         self.edges = {}  # id -> [n1, n2]
@@ -33,7 +33,7 @@ class Graph:
         self.deletedNodes = {}
         self.breadcrumbs = {}  # id -> [[lon,lat],[lon,lat], ...]
 
-        if name is "Untitled" and filename is not None:
+        if name == "Untitled" and filename is not None:
             self.name = self.filename
         
         if filename is not None:
@@ -252,9 +252,10 @@ class Graph:
                 if random.choice([True, False]):
                     self.edges[key] = value[::-1]
 
-    def Plot2MatPlotLib(self):
-        n = list()
+    def Plot2MatPlotLib(self, plot=True):
+        fig, ax = plt.subplots()
 
+        n = []
         for id, edge in self.edges.items():
             n1_id, n2_id = edge[0], edge[1]
             n1, n2 = self.nodes[n1_id], self.nodes[n2_id]
@@ -264,15 +265,19 @@ class Graph:
             if n2 not in n:
                 n.append(n2)
 
-            plt.plot([n1[0], n2[0]], [n1[1], n2[1]],
-                     color='black', linewidth=2)
+            ax.plot([n1[0], n2[0]], [n1[1], n2[1]], color='black', linewidth=1.5)
 
-        lons, lats = map(list, zip(*n))
+        lons, lats = zip(*n)  # Unpack nodes for plotting
 
-        plt.scatter(lons, lats, s=20, c='black')
+        ax.scatter(lons, lats, s=15, c='black')
         g1_label = mpatches.Patch(color='black', label=self.name)
-        plt.legend(handles=[g1_label], loc='upper left')
-        plt.show()
+        ax.legend(handles=[g1_label], loc='upper left')
+
+        if plot:
+            plt.plot()
+            return None
+        else:   
+            return fig, ax
         
     def __eq__(self, other):
         if (self.nodes == other.nodes) and \
