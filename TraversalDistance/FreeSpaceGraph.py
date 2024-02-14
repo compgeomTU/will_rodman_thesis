@@ -245,10 +245,9 @@ class FreeSpaceGraph:
                     if self.log: 
                         self.traversal_logger.info("v: " + str(v) + " e: " + str(e) + " seed_cb: " + str(seed_cb))
                     self.DFS(seed_cb, [], "")
-                    check_projection = self.check_projection()
+                    #check_projection = self.check_projection()
                     self.DFS_calls += 1
-                    if check_projection:
-                        return True
+                    #if check_projection: return True
 
         # Verticle boundaries
         for v in self.g1.nodes.keys():
@@ -259,27 +258,14 @@ class FreeSpaceGraph:
                     if self.log:
                         self.traversal_logger.info("v: " + str(v) + " e: " + str(e) + " seed_cb: " + str(seed_cb))
                     self.DFS(seed_cb, [], "")
-                    check_projection = self.check_projection()
+                    #check_projection = self.check_projection()
                     self.DFS_calls += 1
-                    if check_projection:
-                        return True
+                    #if check_projection: return True
                     
-        return False
-    
-    def BruteForceTraversalDist(self):
-        self.cell_boundaries.clear()
-        
-        # Horizontal boundaries
-        for v in self.g2.nodes.keys():
-            for e in self.g1.edges.keys():
-                self.cell_boundaries[(self.g2.id, v, self.g1.id, e)] = CellBoundary(self.g2, v, self.g1, e, self.e)
-                
-        # Verticle boundaries
-        logging.info("Vertical: vertices from G, edges from H")
-        for v in self.g1.nodes.keys():
-            for e in self.g2.edges.keys():
-                self.cell_boundaries[(self.g1.id, v, self.g2.id, e)] = CellBoundary(self.g1, v, self.g2, e, self.e)
-                    
+        #return False
+        check_projection = self.check_projection()
+        return check_projection
+
     def get_cell_boundry(self, ga, v, gb, e):
         cb = self.cell_boundaries.get((ga.id, v, gb.id, e))
         if cb is None:
