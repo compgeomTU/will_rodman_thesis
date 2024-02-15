@@ -111,7 +111,8 @@ class FreeSpaceGraph:
                     new_edgeID = cb.g_verts.edgeHash[(cb.vertexID, neighbor)] #on vertex graph
                     newCB = self.get_cell_boundry(cb.g_edges, V, cb.g_verts, new_edgeID) # creating new cell boundary from "flipping" horiz --> vertical
                     if self.log: self.dfs_logger.info("start + end values: " + str(newCB.start_fs) + " " + str(newCB.end_fs)+"\n")
-                    if newCB.visited == False and newCB.start_fs <= newCB.end_fs:
+                    # if newCB.visited == False and newCB.start_fs <= newCB.end_fs:
+                    if newCB.visited == False and newCB.start_fs < newCB.end_fs:
                         newCB.start_p = min1  # from block calling ellipse
                         newCB.end_p = max1
                         if self.log:
@@ -125,7 +126,8 @@ class FreeSpaceGraph:
             """ VERTICAL Boundary"""  
             newCB = self.get_cell_boundry(cb.g_verts, neighbor, cb.g_edges, cb.edgeID) # connect v's of same type
             if self.log: self.dfs_logger.info("start + end values: " + str(newCB.start_fs) + " " + str(newCB.end_fs)+"\n")
-            if newCB.visited == False and newCB.start_fs <= newCB.end_fs:
+            #if newCB.visited == False and newCB.start_fs <= newCB.end_fs:
+            if newCB.visited == False and newCB.start_fs < newCB.end_fs:
                 if self.log: self.dfs_logger.info("DFS -- add "+str(newCB.print_cellboundary())+"\n")
                 newCB.start_p = min2  # from block calling ellipse
                 newCB.end_p = max2 
@@ -203,7 +205,8 @@ class FreeSpaceGraph:
                     self.traversal_logger.info("EDGEID "+ str(mycb.edgeID))
                 if all_cbs[mycb.edgeID] == [(0.0,1.0)]: #if the union of all the processed ranges already covers [0,1] there's no need to include the new range
                     continue
-                if mycb.start_p == 0.0 and mycb.end_p == 1.0: #if the new range covers [0,1], this is our new union so no need to find the union between the new range and the previous union
+                #if mycb.start_p == 0.0 and mycb.end_p == 1.0: #if the new range covers [0,1], this is our new union so no need to find the union between the new range and the previous union
+                if mycb.start_p <= 0.001  and mycb.end_p >= 0.999:
                     all_cbs[mycb.edgeID] = [(0.0,1.0)]
                     continue
                 listEdges = list(sum(all_cbs[mycb.edgeID],()))
