@@ -491,7 +491,7 @@ class Graph:
 					self.edges[key] = value[::-1]
 		
 
-	def Plot2MatPlotLib(self, plot=True):
+	def Plot2MatPlotLib(self, plot=True, legend_fontsize='medium'):
 		fig, ax = plt.subplots()
 		n = []
 		for id, edge in self.edges.items():
@@ -508,7 +508,7 @@ class Graph:
 
 		ax.scatter(lons, lats, s=15, c='black')
 		g1_label = mpatches.Patch(color='black', label=self.name)
-		ax.legend(handles=[g1_label], loc='upper left')
+		ax.legend(handles=[g1_label], loc='upper left', fontsize=legend_fontsize)
 
 		samples = []
 		if self.sampleHash != {}:

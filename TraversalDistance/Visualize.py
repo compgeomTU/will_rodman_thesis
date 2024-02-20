@@ -22,7 +22,7 @@ class Visualize(FreeSpaceGraph):
         area = 0.5 * abs(area)
         return area
 
-    def __build_graphs(self, ax):
+    def __build_graphs(self, ax, legend_fontsize):
         g1_n, g2_n = list(), list()
 
         for id, edge in self.g1.edges.items():
@@ -52,18 +52,18 @@ class Visualize(FreeSpaceGraph):
         g1_label = mpatches.Patch(color='black', label=f"G1: {self.g1.name}")
         g2_label = mpatches.Patch(color='grey', label=f"G2: {self.g2.name}")
 
-        ax.legend(handles=[g1_label, g2_label], loc='upper left')
+        ax.legend(handles=[g1_label, g2_label], loc='upper left', fontsize=legend_fontsize)
         ax.set_title(f"Epsilon: {self.epsilon}")
 
-    def plot_graphs(self):
+    def plot_graphs(self, legend_fontsize='medium'):
         fig, ax = plt.subplots()
-        self.__build_graphs(ax)
+        self.__build_graphs(ax, legend_fontsize)
         return fig, ax
 
 
-    def plot_freespace(self, g1_ids=None, g2_ids=None, num=1):
+    def plot_freespace(self, g1_ids=None, g2_ids=None, num=1, legend_fontsize='medium'):
         fig, ax = plt.subplots(1, 1, num=num)
-        self.__build_graphs(ax)
+        self.__build_graphs(ax, legend_fontsize)
 
         axs = plt.gca()
         axs.set_aspect('equal', 'datalim')
@@ -130,6 +130,6 @@ class Visualize(FreeSpaceGraph):
                     points.sort(key=lambda p: math.atan2(p[1]-cent[1],p[0]-cent[0]))
 
                     xs, ys = list(zip(*points))  
-                    axs.fill(xs, ys, alpha=cell_area, fc='lightgrey', ec='none')
+                    axs.fill(xs, ys, alpha=cell_area, fc='darkgrey', ec='none')
                     
         return fig, ax
