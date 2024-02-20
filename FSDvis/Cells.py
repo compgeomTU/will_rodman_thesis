@@ -40,7 +40,7 @@ class Cells:
 
     def __str__(self):
         return str(self.cells)
-
+    
 class Cell:
     x_proj: np.ndarray
     y_proj: np.ndarray
@@ -58,6 +58,41 @@ class Cell:
 
     def __str__(self):
         return "Area: {:04.2f}".format(self.__area)
+
+    def __repr__(self):
+        return self.__str__()
+
+class Cells2D:
+
+    cells: dict
+    cell_ids: dict
+
+    def __init__(self, C1, C2):
+        self.cells = dict()
+        self.cell_ids = dict()
+
+        for C1_id, C1_edge in C1.edges.items():
+            for C2_id, C2_edge in C2.edges.items():
+                
+                C1_n1_id, C1_n2_id = C1_edge[0], C1_edge[1]
+                C1_n1, C1_n2 = C1.nodes[C1_n1_id], C1.nodes[C1_n2_id]
+                C1_lower_vertex, C1_upper_vertex = C1.vertex_dists[C1_n1_id], C1.vertex_dists[C1_n2_id]
+
+                C2_n1_id, C2_n2_id = C2_edge[0], C2_edge[1]
+                C2_n1, C2_n2 = C2.nodes[C2_n1_id], C2.nodes[C2_n2_id]
+                C2_lower_vertex, C2_upper_vertex = C2.vertex_dists[C2_n1_id], C2.vertex_dists[C2_n2_id]
+
+                cell = Cell2D(C1_lower_vertex, C1_upper_vertex, C2_lower_vertex, C2_upper_vertex)
+                self.cells[(C1_n1_id, C1_n2_id, C2_n1_id, C2_n2_id)] = cell
+
+    def __str__(self):
+        return str(self.cells)
+    
+class Cell2D:
+
+    def __init__(self, C1_lower_vertex, C1_upper_vertex, C2_lower_vertex, C2_upper_vertex):
+        self.x_proj = [C1_lower_vertex, C1_upper_vertex]
+        self.y_proj = [C2_lower_vertex, C2_upper_vertex]
 
     def __repr__(self):
         return self.__str__()

@@ -18,11 +18,13 @@ from Curve import Curve
 
 class FreeSpace(FreeSpaceGraph):
     cell_boundaries_3D: list
+    cell_boundaries_2D: list
     free_space_area: float
 
     def __init__(self, G, C, epsilon):
         super().__init__(G, C, epsilon)
         self.cell_boundaries_3D = list()
+        self.cell_boundaries_2D = list()
         self.free_space_area = 0.0
 
     def build_cell_boundaries_3D(self):
@@ -141,3 +143,30 @@ class FreeSpace(FreeSpaceGraph):
         ws = list(map(w, ys))
 
         return us, vs, ws
+    
+    def build_cell_boundaries_2D(self):
+        for C1_id, C1_edge in self.g1.edges.items():
+            for C2_id, C2_edge in self.g2.edges.items():
+                xs, ys = self.buildFreeSpaceCell(C1_id, C2_id, C1_edge, C2_edge)
+
+                if len(xs) > 2 and len(ys) > 2:
+                    
+                    C1_n1_id, C1_n2_id = C1_edge[0], C1_edge[1]
+                    C1_l, C1_u = self.g1.vertex_dists[C1_n1_id], self.g1.vertex_dists[C1_n2_id]
+                    
+                    C2_n1_id, C2_n2_id = C2_edge[0], C2_edge[1]
+                    C2_l, C2_u = self.g2.vertex_dists[C2_n1_id], self.g2.vertex_dists[C2_n2_id]
+
+                    us, vs = self.map_2D(C1_l, C1_u, C2_l, C2_u, xs, ys)
+                    self.cell_boundaries_2D.append((us, vs))
+
+    @staticmethod
+    def map_2D(C_l_x, C_u_x, C_l_y, C_u_y, xs, ys):
+
+        u = lambda x: (C_u_x - C_l_x) * x + C_l_x
+        v = lambda y: (C_u_y - C_l_y) * y + C_l_y
+
+        us = list(map(u, xs))
+        vs = list(map(v, ys))
+
+        return us, vs
