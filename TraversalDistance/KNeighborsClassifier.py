@@ -27,6 +27,8 @@ class KNeighborsClassifier():
                 self.mean = self.__arithmetic
             case 'harmonic':
                 self.mean = self.__harmonic
+            case 'max':
+                self.mean = self.__max
             case _:
                 raise ValueError("Invalid mean defined.")
 
