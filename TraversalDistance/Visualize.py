@@ -5,8 +5,12 @@ import numpy as np
 import math
 class Visualize(FreeSpaceGraph):
 
-    def __init__(self, g1, g2, epsilon=1000, log=False):
+    def __init__(self, g1, g2, epsilon=1000, log=False, g1_color='mediumblue', g2_color='firebrick', fill_color='lightgreen'):
         super().__init__(g1, g2, epsilon, log)
+        
+        self.g1_color = g1_color
+        self.g2_color = g2_color
+        self.fill_color = fill_color
 
     @staticmethod
     def __calculate_cell_area(points):
@@ -32,10 +36,10 @@ class Visualize(FreeSpaceGraph):
             if n1 not in g1_n: g1_n.append(n1)
             if n2 not in g1_n: g1_n.append(n2)
 
-            ax.plot([n1[0], n2[0]], [n1[1], n2[1]], color='black', linewidth=1.5)
+            ax.plot([n1[0], n2[0]], [n1[1], n2[1]], color=self.g1_color, linewidth=1.5)
 
         lons, lats = map(list, zip(*g1_n))
-        ax.scatter(lons, lats, s=15, c='black')
+        ax.scatter(lons, lats, s=15, c=self.g1_color)
 
         for id, edge in self.g2.edges.items():
             n1_id, n2_id = edge[0], edge[1]
@@ -44,13 +48,13 @@ class Visualize(FreeSpaceGraph):
             if n1 not in g2_n: g2_n.append(n1)
             if n2 not in g2_n: g2_n.append(n2)
             
-            ax.plot([n1[0], n2[0]], [n1[1], n2[1]], color='grey', linewidth=1.5)
+            ax.plot([n1[0], n2[0]], [n1[1], n2[1]], color=self.g2_color, linewidth=1.5)
             
         lons, lats = map(list, zip(*g2_n))
-        ax.scatter(lons, lats, s=15, c='grey')
+        ax.scatter(lons, lats, s=15, c=self.g2_color)
             
-        g1_label = mpatches.Patch(color='black', label=f"G1: {self.g1.name}")
-        g2_label = mpatches.Patch(color='grey', label=f"G2: {self.g2.name}")
+        g1_label = mpatches.Patch(color=self.g1_color, label=f"G1: {self.g1.name}")
+        g2_label = mpatches.Patch(color=self.g2_color, label=f"G2: {self.g2.name}")
 
         ax.legend(handles=[g1_label, g2_label], loc='upper left', fontsize=legend_fontsize)
         ax.set_title(f"Epsilon: {self.epsilon}")
@@ -130,6 +134,6 @@ class Visualize(FreeSpaceGraph):
                     points.sort(key=lambda p: math.atan2(p[1]-cent[1],p[0]-cent[0]))
 
                     xs, ys = list(zip(*points))  
-                    axs.fill(xs, ys, alpha=cell_area, fc='darkgrey', ec='none')
+                    axs.fill(xs, ys, alpha=cell_area, fc=self.fill_color, ec='none')
                     
         return fig, ax
