@@ -84,20 +84,20 @@ class KNeighborsClassifier():
         self.X = X
         self.y = y
        
-    def bad_predict(self, X):        
+    def predict(self, X):        
         return list(map(self.__compute, X)), self.__log
     
     # does not work. 
-    def multi_predict(self, X, n_processes=1):        
-        k, m = divmod(len(X), n_processes)
-        batches = list(X[i*k+min(i, m):(i+1)*k+min(i+1, m)] for i in range(n_processes))
+    #def multi_predict(self, X, n_processes=1):        
+    #    k, m = divmod(len(X), n_processes)
+    #    batches = list(X[i*k+min(i, m):(i+1)*k+min(i+1, m)] for i in range(n_processes))
 
-        def task(batch):
-            return [self.__compute(x) for x in batch]
+    #    def task(batch):
+    #        return [self.__compute(x) for x in batch]
         
-        with Pool(processes=n_processes) as pool:
-            results = pool.map(task, batches)
+    #    with Pool(processes=n_processes) as pool:
+    #        results = pool.map(task, batches)
             
-        predictions = [item for sublist in results for item in sublist]
+    #    predictions = [item for sublist in results for item in sublist]
         
-        return predictions, self.__log
+    #    return predictions, self.__log
