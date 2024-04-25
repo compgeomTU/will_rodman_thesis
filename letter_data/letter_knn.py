@@ -103,7 +103,7 @@ def main():
             scores.append(future.result())
 
     df = pd.DataFrame(scores, columns=["precision", "recall"])
-    df.to_csv('logs/knn_log_{LOG_DATE}.csv', index=False)
+    df.to_csv(f'logs/knn_log_{LOG_DATE}.csv', index=False)
     
 if __name__ == '__main__':
     main()
