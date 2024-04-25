@@ -81,7 +81,14 @@ class KNeighborsClassifier():
     def fit(self, X, y):
         self.X = X
         self.y = y
-       
-    def predict(self, X):        
-        return list(map(self.__compute, X)), self.__log
+        
+    def predict(self, X, fold=None):       
+        y_pred = []
+        
+        for index, x in enumerate(X): 
+            print(f"    Fold {fold} - Observation {1+index} of {len(X)}")
+            pred = self.__compute(x)
+            y_pred.append(pred)
+            
+        return y_pred, self.__log
     
