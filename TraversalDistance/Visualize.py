@@ -53,8 +53,8 @@ class Visualize(FreeSpaceGraph):
         lons, lats = map(list, zip(*g2_n))
         ax.scatter(lons, lats, s=15, c=self.g2_color)
             
-        g1_label = mpatches.Patch(color=self.g1_color, label=f"G1: {self.g1.name}")
-        g2_label = mpatches.Patch(color=self.g2_color, label=f"G2: {self.g2.name}")
+        g1_label = mpatches.Patch(color=self.g1_color, label=self.g1.name)
+        g2_label = mpatches.Patch(color=self.g2_color, label=self.g2.name)
 
         ax.legend(handles=[g1_label, g2_label], loc='upper left', fontsize=legend_fontsize)
         ax.set_title(f"Epsilon: {self.epsilon}")

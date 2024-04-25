@@ -82,7 +82,7 @@ class GraphByCurve:
         for id, edge in self.__G.edges.items():
             n1_id, n2_id = edge[0], edge[1]
             n1, n2 = self.__G.nodes[n1_id], self.__G.nodes[n2_id]
-            ax.text((n2[0]+n1[0])/2, (n2[1]+n1[1])/2, 0.25,  id, color='black', size=12)
+            #ax.text((n2[0]+n1[0])/2, (n2[1]+n1[1])/2, 0.25,  id, color='black', size=12)
 
         if figue_filename is None:
             plt.show()
@@ -114,7 +114,7 @@ class GraphByCurve:
         if figue_filename is None:
             plt.show()
         else:
-            plt.savefig(figue_filename)
+            plt.savefig(figue_filename, format='svg')
 
     def set_graph(G):
         self.__G = G
