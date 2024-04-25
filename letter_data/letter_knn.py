@@ -7,11 +7,14 @@ K_NEIGHBORS = 7
 LOG_DATE = '04_24'
 
 # standard library
-import sys, json
+import sys, json, subprocess, os
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 
 # 3rd party library
+command = "pip3 install pandas scikit-learn geojson matplotlib"
+subprocess.run(command.split(), check=True)
+
 import pandas as pd
 from sklearn.model_selection import KFold
 from sklearn.metrics import precision_score, recall_score
