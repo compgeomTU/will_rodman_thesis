@@ -1,10 +1,10 @@
 # python3 letter_knn.py 
 ### PARAMS
 N_SAMPLE = 20
-IS_SAMPLE = True
+IS_SAMPLE = False
 K_FOLD = 5
 K_NEIGHBORS = 7
-LOG_DATE = '04_24'
+LOG_DATE = '04_26'
 
 # standard library
 import sys, json, subprocess, os
