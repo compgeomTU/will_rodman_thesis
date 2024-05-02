@@ -9,7 +9,7 @@ LOG_DATE = '04_26'
 # standard library
 import sys, json, subprocess, os
 from collections import Counter
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 
 # 3rd party library
 command = "pip3 install pandas scikit-learn geojson matplotlib"
